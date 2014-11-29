@@ -1,20 +1,10 @@
 <!doctype html> 
 <html lang="pt-br">  
     <head> 
-        <link rel="stylesheet" href="css/style.css" />
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-        <script type="text/JavaScript" src="js/plugins/jplayer/jquery.jplayer.min.js"></script>
+        <!--<link rel="stylesheet" href="css/style.css" />-->
         <script type="text/JavaScript" src="js/default.js"></script>
         <meta charset="utf-8" />
         <title>jPlayer Tutorial</title>
-        
-        <script>
-            jQuery().ready(function (){
-                
-            })
-            
-        </script>
-        
         
     </head> 
     
@@ -22,21 +12,12 @@
         <div class="top-bar"> 
             <div class="container">
                 <div class="player-controls"> 
-                    <button onclick="document.getElementById('demo').play()">►</button>
-                        <button onclick="document.getElementById('demo').pause()">||</button>
-                        <button onclick="document.getElementById('demo').volume+=0.1">▲</button>
-                        <button onclick="document.getElementById('demo').volume-=0.1">▼</button>
-                        <button onmousedown="document.getElementById('demo').currentTime+=2">»</button>
-                        <button onmousedown="document.getElementById('demo').currentTime-=2">«</button>
+                    <!--<input type="button" value="Pr�ximo" onclick="next();"/>-->
                 </div> 
-<!--                <div class="player">-->
-                    
-                <audio id="demo" controls onpause="alertaPausa()">
+                
+                <audio id="demo" controls onpause="alertaPausa()" autoplay>
                     <source src="songs/musica.mp3" type="audio/mp3">
-                    Seu navegador não suporta áudio em HTML5, atualize-o.
                 </audio>
-  
-                <!--</div>--> 
                 
             </div> 
         </div> 
