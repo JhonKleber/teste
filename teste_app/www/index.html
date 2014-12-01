@@ -1,14 +1,53 @@
 <!DOCTYPE html> 
 <html> 
 	<head> 
-	<title>Page Title</title> 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.css" />
-	<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.js"></script>
-</head> 
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Page Title</title> 
+            <link rel="stylesheet" href="css/estilos.css" />
+            <script type="text/javascript" src="js/funcoes.js"></script>
+            
+            <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.css" />
+            <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+            <script src="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.js"></script>
+            <script>
+                
+                function onSuccess(data, status)
+                {
+                    data = $.trim(data);
+                    alert("Sucesso!")
+                    $("#notification").text(data);
+                    //$.mobile.changePage("#menu"); 
+                }
+
+                function onError(data, status)
+                {
+                    // handle an error
+                }     
+                
+                $( '#menu' ).live( 'pageinit',function(event){
+                    $("#submit").click(function(){
+  
+                        var formData = $("#form").serialize();
+
+                        $.ajax({
+                            type: "POST",
+                            url: "teste.php",
+                            cache: false,
+                            data: formData,
+                            success: onSuccess,
+                            error: onError
+                        });
+
+                        return false;
+                    });
+               });
+            </script>
+            
+        </head> 
 <body> 
 
-<div data-role="page" id="menu" data-theme="b" data-content-theme="b">
+<div data-role="page" id="menu" data-theme="a" data-content-theme="a">
 
 	<div data-role="header">
 		<h1>Hello World</h1>
@@ -19,13 +58,11 @@
 			<li data-role="list-divider">MENU</li> 
 			<li><a href="#primeira">Primeira Pagina</a></li> 
 			<li><a href="#segunda">Segunda Pagina</a></li> 
-			<li><a href="index2.html">Outro arquivo index2.html</a></li> 
-			<li><a href="#segunda">Item 3</a></li> 
+			<li><a href="index2.html" data-transition="slide">Outro arquivo index2.html</a></li> 
+			<li><a href="#terceira" data-rel="dialog" data-transition="pop">PopUp</a></li> 
 			<li><a href="#segunda">Item 4</a></li> 
 			<li><a href="#segunda">Item 5</a></li> 
 		</ul> 
-            
-            
 	</div>
 
 	</div>
@@ -63,6 +100,51 @@
 	</div>
 
 </div>
+    
+<div data-role="page" id="terceira">
+
+	<div data-role="header">
+		<h1>Terceira página</h1>
+	</div>
+
+	<div data-role="content">	
+                <h2>Cadastro</h2>
+                
+                <form id="frmCadastro">
+                    <ul> 
+                        <li> 
+                            <label for="txtCodigo">Código:</label> 
+                            <input type="text" id="txtCodigo"/> 
+                        </li> 
+                        <li> 
+                            <label for="txtNome">Nome:</label> 
+                            <input type="text" id="txtNome"/> 
+                        </li> 
+                        <li> 
+                            <label for="txtTelefone">Telefone:</label> 
+                            <input type="text" id="txtTelefone"/> 
+                        </li> 
+                        <li> 
+                            <label for="txtEmail">Email:</label> 
+                            <input type="text" id="txtEmail"/> 
+                        </li> 
+                        <li> 
+                            <input type="submit" value="Salvar" id="btnSalvar"/> 
+                        </li> 
+                    </ul> 
+                </form> 
+                
+                <table id="tblListar"> 
+                
+                </table>
+                
+	</div>
+    
+        <div data-role="footer">
+		<p><a href="#menu"  data-rel="back">Voltar ao Menu</a></p>	
+	</div>
+
+</div>    
     
 </body>
 
