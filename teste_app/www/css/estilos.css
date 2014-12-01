@@ -150,7 +150,7 @@ Seção .CHAMADA <<<<<========================================
 Seção .CONTAINER - Conteúdo com 3 colunas <<<<<=============
 ----------------------------------------------------------*/
 .container{
-	background-color:#FE9481;
+	/*background-color:#FE9481;*/
 	height: 417px;
 	padding:2.5%; /* 30px ÷ 1200px = 0.025 x 100 = 2.5%*/
 	width:95%; /* 1200px ÷ 1200px = 1 x 100 = 100% .:. 100% - 5.0% de padding (direita e esquerda) = 95%*/
@@ -397,6 +397,8 @@ Media Queries <<<<<=========================================
 				padding: 2px 3.333333333333333%; /* 4px ÷ 120px */
 			}
 }
+
+
 /* 
 480px – Smartphones no formato paisagem com tela pequena
 ***********************************************************/
@@ -512,6 +514,8 @@ nav{
 		width:inherit;
 	}
 }
+
+
 /* 
 320px – Smartphones no formato retrato com tela pequena
 ***********************************************************/
