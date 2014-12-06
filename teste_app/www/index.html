@@ -5,13 +5,14 @@
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>Page Title</title> 
             <link rel="stylesheet" href="css/estilos.css" />
-            <script type="text/javascript" src="js/funcoes.js"></script>
+            <script src="js/cordova.js"></script>
             
             <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.css" />
             <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
             <script src="http://code.jquery.com/mobile/1.1.2/jquery.mobile-1.1.2.min.js"></script>
+            
             <script>
-              
+                
                 function onSuccess(data, status)
                 {
                     data = $.trim(data);
@@ -44,109 +45,113 @@
                });
               
             </script>
-            
-        </head> 
-<body> 
+     
+    <script>
+        var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value 
 
-<div data-role="page" id="menu" data-theme="a" data-content-theme="a">
+    // Wait for PhoneGap to connect with the device
+    //
+    document.addEventListener("deviceready",onDeviceReady,false);
 
-	<div data-role="header">
-		<h1>Links Uteis Jhon</h1>
-	</div>
+    // PhoneGap is ready to be used!
+    //
+    function onDeviceReady() {
+        pictureSource=navigator.camera.PictureSourceType;
+        destinationType=navigator.camera.DestinationType;
+    }
 
-	<div data-role="content">	
-		<ul data-role="listview" data-inset="true"> 
-			<li data-role="list-divider">MENU</li> 
-                        <li><a href="#" onclick="window.open('http://fucapi.br', '_system', 'location=no')">Fucapi</a></li> 
-			<li><a href="#" onclick="window.open('http://ead.fucapi.edu.br/login', '_system', 'location=no')">Portal EAD Fucapi</a></li> 
-                        <li><a href="#" onclick="window.open('http://cpanel.hostinger.com.br/auth', '_system', 'location=no')">Portal Hostinger</a></li> 
-                        <li><a href="#" onclick="window.open('https://build.phonegap.com/people/sign_in', '_system', 'location=no')">Portal Phonegap</a></li> 
-                        <li><a href="#" onclick="window.open('http://jhonkleber.zz.mu/jk', '_system', 'location=no')">Wordpress Jhon</a></li> 
-                        <li><a href="#" onclick="window.open('http://jhonkleber.zz.mu/jk/wp-admin', '_system', 'location=no')">Wordpress Adm</a></li> 
-		</ul> 
-	</div>
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+      // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
 
-</div>
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
 
-<div data-role="page" id="primeira">
-
-	<div data-role="header">
-		<h1>Primeira página</h1>
-	</div>
-
-	<div data-role="content">	
-		<p><a href="#menu"  data-rel="back">Voltar ao Menu</a></p>
-                
-                <div data-role="collapsible">
-                    <h3>I'm a header</h3>
-                    <p>I'm the collapsible content. By default I'm closed, but you can click the header to open me.</p>
-                 </div>
-                
-	</div>
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
     
-    <div data-role="footer">
-        <p>Footer</p>
-    </div>
+	// Called when a photo is successfully retrieved
+    //
+    function onPhotoFileSuccess(imageData) {
+      // Get image handle
+      console.log(JSON.stringify(imageData));
+      
+   	  // Get image handle
+      //
+      var smallImage = document.getElementById('smallImage');
 
-</div>
+      // Unhide image elements
+      //
+      smallImage.style.display = 'block';
 
-<div data-role="page" id="segunda">
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      smallImage.src = imageData;
+    }
 
-	<div data-role="header">
-		<h1>Segunda página</h1>
-	</div>
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+      // Uncomment to view the image file URI 
+      // console.log(imageURI);
 
-	<div data-role="content">	
-		<p><a href="#menu"  data-rel="back">Voltar ao Menu</a></p>	
-	</div>
+      // Get image handle
+      //
+      var largeImage = document.getElementById('largeImage');
 
-</div>
+      // Unhide image elements
+      //
+      largeImage.style.display = 'block';
+
+      // Show the captured photo
+      // The inline CSS rules are used to resize the image
+      //
+      largeImage.src = imageURI;
+    }
+
+    // A button will call this function
+    //
+    function capturePhotoWithData() {
+      // Take picture using device camera and retrieve image as base64-encoded string
+      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50 });
+    }
+
+    function capturePhotoWithFile() {
+        navigator.camera.getPicture(onPhotoFileSuccess, onFail, { quality: 50, destinationType: Camera.DestinationType.FILE_URI });
+    }
     
-<div data-role="page" id="terceira">
+    // A button will call this function
+    //
+    function getPhoto(source) {
+      // Retrieve image file location from specified source
+      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50, 
+        destinationType: destinationType.FILE_URI,
+        sourceType: source });
+    }
 
-	<div data-role="header">
-		<h1>Terceira página</h1>
-	</div>
+    // Called if something bad happens.
+    // 
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
 
-	<div data-role="content">	
-                <h2>Cadastro</h2>
-                
-                <form id="frmCadastro">
-                    <ul> 
-                        <li> 
-                            <label for="txtCodigo">Código:</label> 
-                            <input type="text" id="txtCodigo"/> 
-                        </li> 
-                        <li> 
-                            <label for="txtNome">Nome:</label> 
-                            <input type="text" id="txtNome"/> 
-                        </li> 
-                        <li> 
-                            <label for="txtTelefone">Telefone:</label> 
-                            <input type="text" id="txtTelefone"/> 
-                        </li> 
-                        <li> 
-                            <label for="txtEmail">Email:</label> 
-                            <input type="text" id="txtEmail"/> 
-                        </li> 
-                        <li> 
-                            <input type="submit" value="Salvar" id="btnSalvar"/> 
-                        </li> 
-                    </ul> 
-                </form> 
-                
-                <table id="tblListar"> 
-                
-                </table>
-                
-	</div>
-    
-        <div data-role="footer">
-		<p><a href="#menu"  data-rel="back">Voltar ao Menu</a></p>	
-	</div>
-
-</div>
-    
-</body>
-
+    </script>
+  </head>
+  <body>
+    <button onclick="capturePhotoWithData();">Capture Photo With Image Data</button> <br>
+    <button onclick="capturePhotoWithFile();">Capture Photo With Image File URI</button> <br>
+    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
+    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
+    <img style="display:none;" id="largeImage" src="" />
+  </body>
 </html>
